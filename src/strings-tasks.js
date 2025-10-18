@@ -20,8 +20,19 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
+  if (!value || value === null || value === undefined) {
+    return 0;
+  }
   return value.length;
 }
+
+// console.log('ky');
+
+// console.log(getStringLength('qqqqq'));
+// console.log(getStringLength(''));
+// console.log(getStringLength(null));
+// console.log(getStringLength(undefined));
+// console.log(getStringLength());
 
 /**
  * Returns true if the value is a string, otherwise returns false.
@@ -38,7 +49,7 @@ function getStringLength(value) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value === 'string';
+  return typeof value === 'string' || value instanceof String;
 }
 
 /**
@@ -54,7 +65,7 @@ function isString(value) {
  *   concatenateStrings('', 'bb') => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  return value1 + value2;
+  return value1.concat(value2);
 }
 
 /**
@@ -69,7 +80,10 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value[0];
+  if (!value || value === null || value === undefined) {
+    return '';
+  }
+  return value.charAt(0);
 }
 
 /**
@@ -148,9 +162,14 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('To be or not to be', 'be') => 'To  or not to be'.
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
+ *  return str.replace(value, ''); - ршение не принято, почему-то считается не оптимальным :((
  */
 function removeFirstOccurrences(str, value) {
-  str.replace(value, '');
+  const index = str.indexOf(value);
+  if (index === -1) {
+    return str;
+  }
+  return str.slice(0, index) + str.slice(index + value.length);
 }
 
 /**
@@ -170,7 +189,7 @@ function removeLastOccurrences(str, value) {
   if (index === -1) {
     return str;
   }
-  return str.slice(0, index) + str.slice(index + str.length);
+  return str.slice(0, index) + str.slice(index + value.length);
 }
 
 /**
@@ -187,6 +206,10 @@ function removeLastOccurrences(str, value) {
  */
 function sumOfCodes(str) {
   let sum = 0;
+
+  if (!str || str.length === 0) {
+    return 0;
+  }
   for (let i = 0; i < str.length; i += 1) {
     sum += str[i].charCodeAt();
   }
@@ -237,7 +260,9 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  return `${minutes}:${seconds}`;
+  const mm = String(minutes).padStart(2, '0');
+  const ss = String(seconds).padStart(2, '0');
+  return `${mm}:${ss}`;
 }
 
 /**
@@ -300,7 +325,7 @@ function containsSubstring(str, substring) {
  *   countVowels('XYZ') => 1
  */
 function countVowels(str) {
-  const llafariaids = 'aeiouAEIOU';
+  const llafariaids = 'aeiouyAEIOUY';
   let sum = 0;
 
   for (let i = 0; i <= str.length; i += 1) {
@@ -325,8 +350,15 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  const revers = str.toLowerCase().split('').reverse().join('');
-  return str.toLowerCase() === revers;
+  const preStr = str
+    .toLowerCase()
+    .replaceAll(' ', '')
+    .replaceAll(',', '')
+    .replaceAll('.', '')
+    .replaceAll('?', '')
+    .replaceAll('!', '');
+  const revers = preStr.split('').reverse().join('');
+  return preStr === revers;
 }
 
 /**
@@ -343,19 +375,14 @@ function isPalindrome(str) {
  */
 function findLongestWord(sentence) {
   const arrStr = sentence.split(' ');
-  let lengthWord = 0;
-  let maxWord;
-
+  let maxWord = '';
   for (let i = 0; i < arrStr.length; i += 1) {
-    lengthWord = arrStr[1].length;
-
-    if (arrStr[i].length > lengthWord) {
+    if (maxWord.length < arrStr[i].length) {
       maxWord = arrStr[i];
     }
   }
   return maxWord;
 }
-
 /**
  * Returns the string where each word is reversed.
  *
@@ -366,12 +393,13 @@ function findLongestWord(sentence) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
+
+//  через forEach не получилось :((
 function reverseWords(str) {
   const arrStr = str.split(' ');
-
-  arrStr.forEach((ar) => {
-    ar.split('').reverse().join('');
-  });
+  for (let i = 0; i < arrStr.length; i += 1) {
+    arrStr[i] = arrStr[i].split('').reverse().join('');
+  }
   return arrStr.join(' ');
 }
 
@@ -387,17 +415,15 @@ function reverseWords(str) {
  *   invertCase('12345') => '12345'
  */
 function invertCase(str) {
-  const arrStr = str.split(' ');
+  const arrStr = str.split('');
   for (let i = 0; i < arrStr.length; i += 1) {
     const loverString = arrStr[i].toLowerCase();
-
     if (arrStr[i] === loverString) {
-      arrStr[i] = arrStr[i].toUpperCase;
+      arrStr[i] = arrStr[i].toUpperCase();
     } else {
-      arrStr[i] = arrStr[i].toLowerCase;
+      arrStr[i] = arrStr[i].toLowerCase();
     }
   }
-
   return arrStr.join('');
 }
 

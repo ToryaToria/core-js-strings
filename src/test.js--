@@ -1,0 +1,178 @@
+/*   getFirstChar('John Doe') => 'J'
+*   getFirstChar('cat') => 'c'
+*   getFirstChar('') => ''
+*/
+function getFirstChar(value) {
+  if (!value || value === null || value === undefined) {
+    return '';
+  }
+  return value[0];
+}
+
+// console.log(getFirstChar('John Doe'));
+// console.log(getFirstChar(''));
+// console.log(getFirstChar(null));
+// console.log(getFirstChar(undefined));
+// console.log(getFirstChar());
+
+
+/*   isString() => false
+ *   isString(null) => false
+ *   isString([]) => false
+ *   isString({}) => false
+ *   isString('test') => true
+ *   isString(new String('test')) => true
+ */
+function isString(value) {
+  let bool;
+  if (
+    !value ||
+    value === null ||
+    value === undefined ||
+    typeof value === 'object'
+  ) {
+    bool = false;
+  }
+  if (typeof value === 'string') {
+    bool = true;
+  }
+  return bool;
+}
+
+// console.log(isString());
+// console.log(isString(null));
+// console.log(isString([]));
+// console.log(isString({}));
+// console.log(isString('test'));
+// console.log(isString(new String('test')));
+
+
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
+}
+
+// console.log(removeFirstOccurrences('To be or not to be', 'be'));
+// console.log(removeFirstOccurrences('I like legends', 'end'));
+// console.log(removeFirstOccurrences('ABABAB', 'BA'));
+
+
+// function removeLastOccurrences(str, value) {
+//   const index = str.lastIndexOf(value);
+//   if (index === -1) {
+//     return str;
+//   }
+
+//   console.log(index);
+
+//   // let sybstr = str.slice(index, index + value.length);
+//   // replace - заменяет только первое вхождение, метод не подходит!
+//   // return str.replace(sybstr, '');
+
+//     return str.slice(0, index) + str.slice(index + value.length);
+// }
+
+
+// console.log(removeLastOccurrences('123be456789be', 'be'));
+// console.log('------------------')
+// console.log(removeLastOccurrences('12345end6789', 'end'));
+// console.log('------------------')
+
+// console.log(removeLastOccurrences('ABABAB', 'BA'));
+
+
+// function countVowels(str) {
+//   const llafariaids = 'aeiouyAEIOUY';
+//   let sum = 0;
+
+//   for (let i = 0; i <= str.length; i += 1) {
+//     if (llafariaids.indexOf(str[i]) !== -1) {
+//       sum += 1;
+//     }
+//   }
+//   return sum;
+// }
+
+// console.log(   countVowels('apple'));
+//  console.log(  countVowels('banana') );
+//  console.log(   countVowels('cherry') );
+//  console.log(   countVowels('aEiOu') );
+//  console.log(   countVowels('XYZ') );
+
+// function isPalindrome(str) {
+//   const preStr = str.toLowerCase()
+//     .replaceAll(' ', '')
+//     .replaceAll(',', '')
+//     .replaceAll('.', '')
+//     .replaceAll('!', '');
+//   const revers = preStr.split('').reverse().join('');
+//   return preStr === revers;
+// }
+
+// console.log(isPalindrome('A man, a plan, a canal, Panama!'));
+
+
+// function findLongestWord(sentence) {
+//   const arrStr = sentence.split(' ');
+//   // console.log(arrStr);
+//   let maxWord = '';
+//   // console.log(arrStr.length);
+
+//   for (let i = 0; i < arrStr.length; i += 1) {
+//     // console.log(arrStr[i].length);
+//     // console.log(maxWord < arrStr[i].length);
+//     if (maxWord.length < arrStr[i].length) {
+//       maxWord = arrStr[i];
+
+//       // console.log(`maxWord = ${maxWord}`);
+
+//     }
+//   }
+//   return maxWord;
+// }
+
+// console.log(findLongestWord('The quick brown fox'));
+// console.log(   findLongestWord('A long and winding road'));
+// console.log(   findLongestWord('No words here'));
+
+
+
+// function reverseWords(str) {
+//   const arrStr = str.split(' ');
+// for (let i = 0; i < arrStr.length; i +=1) {
+// arrStr[i] = arrStr[i].split('').reverse().join('');
+//     console.log(arrStr[i]);
+// };
+//   console.log(arrStr)
+//   return arrStr.join(' ');
+// }
+
+// //  console.log(  reverseWords('Hello World') );
+// console.log(  reverseWords('The Quick Brown Fox') );
+
+
+
+
+
+function invertCase(str) {
+  const arrStr = str.split('');
+  // console.log(arrStr);
+  for (let i = 0; i < arrStr.length; i += 1) {
+    const loverString = arrStr[i].toLowerCase();
+  // console.log(loverString);
+  // console.log(arrStr[i]);
+
+    if (arrStr[i] === loverString) {
+      arrStr[i] = arrStr[i].toUpperCase();
+        // console.log(arrStr[i]);
+
+    } else {
+      arrStr[i] = arrStr[i].toLowerCase();
+    }
+  }
+
+  return arrStr.join('');
+}
+
+console.log(invertCase('Hello, World!'));
+console.log(  invertCase('JavaScript is Fun')  );
+console.log(   invertCase('12345')  );
